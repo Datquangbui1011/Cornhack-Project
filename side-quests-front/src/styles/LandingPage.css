@@ -29,5 +29,7 @@
     font-size: 1.2rem;
     font-weight: bold;
     cursor: pointer;
+    border-width: 3px;
+    border-color: #926d48;
 }
 
