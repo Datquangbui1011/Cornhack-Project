@@ -2,7 +2,7 @@
 .landing-container {
     width: 100vw; /* Full width of the viewport */
     height: 100vh; /* Full height of the viewport */
-    background-image: url('./../assets/images/Landing_bg.jpg');
+    background-image: url('./../assets/images/landing_page.jpg');
     background-size: cover; /* Ensures the image covers the full container */
     background-position: cover; /* Centers the image */
     background-repeat: no-repeat; /* Prevents tiling */
