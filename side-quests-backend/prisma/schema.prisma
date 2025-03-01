@@ -1,0 +1,79 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-py"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Category {
+  id      Int       @id
+  name    String
+  Project Project[]
+}
+
+model Project {
+  id           Int           @id @default(autoincrement())
+  project_name String
+  description  String?
+  dificulty   Int
+  category     Category      @relation(fields: [categoryId], references: [id])
+  categoryId   Int
+  created_at   DateTime
+  updated_at   DateTime
+  UserProject  UserProject[]
+}
+
+model User {
+  id              Int           @id @default(autoincrement())
+  username        String
+  hashed_password String
+  email           String
+  role            String
+  UserProject     UserProject[]
+}
+
+model UserProject {
+  id             Int              @id
+  user           User             @relation(fields: [userId], references: [id])
+  project        Project          @relation(fields: [projectId], references: [id])
+  userId         Int
+  projectId      Int
+  completed      Boolean
+  StepsCompleted StepsCompleted[]
+
+  @@unique([userId, projectId])
+}
+
+model Steps {
+  id             Int              @id @default(autoincrement())
+  description    String
+  stepbreakdown  StepBreakdown[]
+  StepsCompleted StepsCompleted[]
+}
+
+model StepBreakdown {
+  id   Int   @id @default(autoincrement())
+  step Steps @relation(fields: [stepsId], references: [id])
+
+  stepsId Int
+}
+
+model StepsCompleted {
+  id Int @id @default(autoincrement())
+  userproject   UserProject @relation(fields: [userProjectId], references: [id])
+  steps         Steps       @relation(fields: [stepsId], references: [id])
+  completed     Boolean
+  userProjectId Int
+  stepsId       Int
+
+  @@unique([userProjectId, stepsId])
+}
