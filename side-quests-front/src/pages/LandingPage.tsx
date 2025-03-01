@@ -6,7 +6,7 @@ const LandingPage: React.FC = () => {
     return (
         <div className="landing-container">
             <h1>Welcome to sideQuests</h1>
-            <p>Your rad roadmap to get to your coding portfolio.</p>
+            <p>Your roadmap to get to your coding portfolio.</p>
             <Link to="/login">
                 <button>Login</button>
             </Link>
