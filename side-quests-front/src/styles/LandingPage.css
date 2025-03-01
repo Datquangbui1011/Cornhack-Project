@@ -1,38 +1,82 @@
+/* Ensure the HTML and body take full height */
+html, body {
+    height: 100%;
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+}
 /* src/styles/LandingPage.css */
 .landing-container {
     width: 100vw; /* Full width of the viewport */
     height: 100vh; /* Full height of the viewport */
-    background-image: url('./../assets/images/Landing_bg.jpg');
+    background-image: url('./../assets/images/landing_page.jpg');
     background-size: cover; /* Ensures the image covers the full container */
-    background-position: cover; /* Centers the image */
+    background-position: center; /* Centers the image */
     background-repeat: no-repeat; /* Prevents tiling */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    font-family: 'Copperplate', sans-serif;
+    font-family: 'Orbitron', sans-serif; /* Futuristic font */
     font-weight: bold;
     color: white;
     font-size: 2rem;
-    /* Adjust size as needed */
+    background-attachment: fixed; /* Parallax effect */
+    overflow: hidden; /* To prevent overflow on smaller screens */
+    position: relative; /* Needed for positioning child elements */
 }
 
-
-
-.landing-container h1,
-.landing-container p {
+/* Header and paragraph text */
+.landing-container h1 {
+    font-size: 4.5rem; /* Larger font for title */
+    color: #ffffff; /* Neon white color */
     margin: 0.5rem;
+    text-shadow: 0px 0px 15px rgba(255, 255, 255, 0.8); /* Glowing effect */
 }
 
+.landing-container p {
+    font-size: 1.8rem; /* Adjusted font size for description */
+    color: #ffffff; /* Neon white */
+    margin: 0.5rem;
+    text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.6); /* Glowing effect */
+}
+
+/* Button styling */
 .landing-container button {
-    margin-top: 1rem;
-    padding: 0.75rem 1.5rem;
-    font-size: 1.2rem;
+    margin-top: 2rem;
+    padding: 1rem 2rem;
+    font-size: 1.5rem;
     font-weight: bold;
     cursor: pointer;
-    border-radius: 25px;
-    border-width: 3px;
-    border-color: #19579E;
+    border-radius: 30px;
+    border: none;
+    background-color: #ffffff; /* Neon white background */
+    color: #000;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.7); /* Glowing effect */
 }
 
+/* Button hover effect */
+.landing-container button:hover {
+    background-color: #ffffff; /* Neon white */
+    color: #000;
+    transform: scale(1.1); /* Slight button expansion */
+    box-shadow: 0 6px 18px rgba(255, 255, 255, 0.8); /* Increased glowing effect */
+}
+
+/* Responsive Design for mobile */
+@media (max-width: 600px) {
+    .landing-container {
+        font-size: 1.5rem;
+    }
+    .landing-container h1 {
+        font-size: 3.5rem;
+    }
+    .landing-container p {
+        font-size: 1.5rem;
+    }
+    .landing-container button {
+        padding: 0.75rem 1.5rem;
+        font-size: 1.2rem;
+    }
+}
