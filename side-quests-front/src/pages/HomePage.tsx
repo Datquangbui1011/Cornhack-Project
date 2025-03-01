@@ -19,7 +19,7 @@ const HomePage: React.FC = () => {
 
     return (
         <div className="home-container">
-            <h1 className="home-title">Hello Warrior</h1>
+            <h1 className="home-title">Hello Adventurer</h1>
             <p className="home-text">
                 {hasChosenPath ? "Let's continue fighting!" : "Are you ready for the adventure?"}
             </p>
