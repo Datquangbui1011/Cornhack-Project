@@ -15,7 +15,7 @@ body {
     height: 100vh;
     background-color: #000;
     /* Fallback color */
-    background-image: url('./../assets/images/pathchoice-bg.jpeg');
+    background-image: url('./../assets/images/pathchoice-bg.jpg');
     background-size: cover;
     background-position: center;
     font-family: 'Copperplate', sans-serif;
