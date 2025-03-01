@@ -3,31 +3,66 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 80vh;
+    height: 100vh; /* Full viewport height */
+    width: 100vw; /* Full viewport width */
+    background-image: url('./../assets/images/6.png'); /* Make sure the path is correct */
+    background-size: cover; /* Covers the entire container */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents repetition */
     text-align: center;
     font-family: 'Copperplate', sans-serif;
     font-weight: bold;
     font-size: 2rem;
 }
 
-.home-text {
-    margin-bottom: 2rem;
+
+/* Highlight title */
+.home-title {
+    margin-bottom: 0.5rem;
+    padding: 5px 15px; /* Adds space around text */
+    background-color: rgba(255, 255, 255, 0.6); /* Semi-transparent background */
+    color: black; /* Ensures text is visible */
+    border-radius: 10px; /* Slightly rounded edges */
+    font-size: 5rem; /* Larger font */
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5); /* Adds contrast */
 }
 
+/* Highlight text */
+.home-text {
+    margin-bottom: 2rem;
+    padding: 10px 20px; /* Adds some padding around text */
+    background-color: rgba(255, 255, 255, 0.6); /* Semi-transparent background */
+    color: black; /* Ensures text is visible */
+    border-radius: 10px; /* Slight rounding for better look */
+    font-size: 3rem; /* Slightly larger font */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Adds text shadow for contrast */
+}
+
+/* Start Button */
 .start-button {
     background-color: #0f0f0f;
     color: white;
     border: none;
     padding: 1rem 2rem;
-    border-radius: 8px;
+    border-radius: 12px; /* More rounded shape */
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    text-align: center;
+    transition: all 0.3s ease;
     font-family: 'Copperplate', sans-serif;
     font-weight: bold;
+    border-radius: 25px;
+    border-width: 3px;
     font-size: 2rem;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Adds subtle shadow */
 }
 
+/* Button hover effect */
 .start-button:hover {
     background-color: #808080;
+    color: white;
+    transform: scale(1.1); /* Enlarges slightly */
+}
+
+/* Button click effect */
+.start-button:active {
+    transform: scale(0.95);
 }
