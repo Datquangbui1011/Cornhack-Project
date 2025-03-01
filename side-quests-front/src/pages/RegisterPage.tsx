@@ -43,7 +43,7 @@ const Register: React.FC = () => {
         <div className="login-register-container">
             <h1>Register</h1>
             <p>Please fill in the details to create an account.</p>
-            <form onSubmit={handleRegister}>
+            <form onSubmit={handleRegister} className="form-container">
                 <div>
                     <label htmlFor="name">Name</label>
                     <input

@@ -1,3 +1,9 @@
+/* Ensure the HTML and body take full height */
+html, body {
+    height: 100%;
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+}
 .path-choice-container {
     display: flex;
     flex-direction: column;
