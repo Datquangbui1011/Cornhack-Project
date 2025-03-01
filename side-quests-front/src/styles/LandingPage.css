@@ -1,0 +1,26 @@
+/* src/styles/LandingPage.css */
+.landing-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    font-family: 'Copperplate', sans-serif;
+    font-weight: bold;
+    font-size: 2rem;
+    /* Adjust size as needed */
+}
+
+.landing-container h1,
+.landing-container p {
+    margin: 0.5rem;
+}
+
+.landing-container button {
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+}
