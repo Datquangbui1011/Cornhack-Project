@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from app.db.prisma_connection import lifespan
 from fastapi.middleware.cors import CORSMiddleware
-from app.routes import category_router, project_router
+from app.routes import category_router, project_router, step_breakdown_router, steps_router
 
 app = FastAPI(lifespan=lifespan)
 
@@ -15,6 +15,9 @@ app.include_router(project_router.router)
 
 app.include_router(category_router.router)
 
+app.include_router(steps_router.router)
+
+app.include_router(step_breakdown_router.router)
 
 @app.get("/", tags=["Root"])
 def root():

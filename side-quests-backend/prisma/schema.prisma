@@ -47,16 +47,16 @@ model UserProject {
   projectId      Int
   completed      Boolean
   StepsCompleted StepsCompleted[]
-  
+
   @@unique([userId, projectId])
 }
 
 model Steps {
   id             Int              @id @default(autoincrement())
-  description    String
+  description    String           
   // Cascade deletion: if a Steps record is removed, then its related breakdowns and completions are also removed.
-  stepbreakdown  StepBreakdown[]  
-  StepsCompleted StepsCompleted[] 
+  stepbreakdown  StepBreakdown[]
+  StepsCompleted StepsCompleted[]
 }
 
 model StepBreakdown {
@@ -64,6 +64,7 @@ model StepBreakdown {
   // When the parent Steps record is deleted, delete the breakdown.
   step    Steps @relation(fields: [stepsId], references: [id], onDelete: Cascade)
   stepsId Int
+  description String @unique
 }
 
 model StepsCompleted {

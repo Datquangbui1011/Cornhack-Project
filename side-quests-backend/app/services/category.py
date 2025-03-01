@@ -1,11 +1,11 @@
 import logging
-from typing import Any, List, Optional
+from typing import Any, List
 from fastapi import HTTPException
 from pydantic import ValidationError
-from app.db.prisma_connection import get_prisma
 from prisma.errors import PrismaError
 from prisma import Prisma
 from app.models.category import Category, CategoryUpdate
+from app.utils.decorators import handle_service_exceptions
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -21,149 +21,52 @@ class CategoryService:
     """
 
     def __init__(self, prisma_client: Prisma):
-        """
-        Initialize the CategoryService with a Prisma client.
-
-        :param prisma_client: An instance of the Prisma client. If not provided,
-                              get_prisma() will be used to obtain one.
-        """
         self.prisma = prisma_client
 
+    @handle_service_exceptions
     async def get_categories(self) -> List[Category]:
-        """
-        Retrieve all categories.
+        categories = await self.prisma.category.find_many()
+        if not categories:
+            return []
+        return [
+            Category.model_validate(category.model_dump(mode="python"))
+            for category in categories
+        ]
 
-        :return: A list of category objects.
-        :raises HTTPException: If fetching categories fails.
-        """
-        try:
-            categories = await self.prisma.category.find_many()
-            if not categories:
-                return []
-            return [
-                Category.model_validate(category.model_dump(mode="python"))
-                for category in categories
-            ]
-        except PrismaError as e:
-            logger.error(f"Error fetching categories: {e}")
-            raise HTTPException(status_code=500, detail=str(e))
-        except ValidationError as e:
-            logger.error(f"Error validating categories: {e}")
-            raise HTTPException(status_code=500, detail=str(e))
-        except Exception as e:
-            logger.error(f"Error fetching categories: {e}")
-            raise HTTPException(status_code=500, detail=str(e))
-
+    @handle_service_exceptions
     async def insert_category(self, category: Category) -> Category:
+        created = await self.prisma.category.create(
+            data=category.model_dump(mode="python")
+        )
+        return Category.model_validate(created.model_dump(mode="python"))
 
-        try:
-            category = await self.prisma.category.create(
-                data=category.model_dump(mode="python")
-            )
-            return Category.model_validate(category.model_dump(mode="python"))
-        except PrismaError as e:
-            logger.error(f"Error inserting category: {e}")
-            raise HTTPException(status_code=500, detail=str(e))
-        except ValidationError as e:
-            logger.error(f"Error validating category: {e}")
-            raise HTTPException(status_code=500, detail=str(e))
-        except Exception as e:
-            logger.error(f"Error inserting category: {e}")
-            raise HTTPException(status_code=500, detail=str(e))
-
+    @handle_service_exceptions
     async def get_category_by_id(self, id: int) -> Category:
-        """
-        Retrieve a category by its ID.
+        category = await self.prisma.category.find_unique(where={"id": id})
+        if not category:
+            logger.error("Category not found")
+            raise HTTPException(status_code=404, detail="Category not found")
+        return Category.model_validate(category.model_dump(mode="python"))
 
-        :param id: The unique identifier of the category to retrieve.
-        :return: The category object.
-        :raises HTTPException: If the category is not found.
-        """
-        try:
-            category = await self.prisma.category.find_unique(where={"id": id})
-            if not category:
-                logger.error("Category not found")
-                raise HTTPException(status_code=404, detail="Category not found")
-            return Category.model_validate(category.model_dump(mode="python"))
-        except PrismaError as e:
-            logger.error(f"Error fetching category: {e}")
-            raise HTTPException(status_code=500, detail=str(e))
-        except ValidationError as e:
-            logger.error(f"Error validating category: {e}")
-            raise HTTPException(status_code=500, detail=str(e))
-        except Exception as e:
-            logger.error(f"Error fetching category: {e}")
-            raise HTTPException(status_code=500, detail=str(e))
-
+    @handle_service_exceptions
     async def update_category(self, id: int, category: CategoryUpdate) -> Category:
-        """
-        Update a category by its ID.
+        updated = await self.prisma.category.update(
+            where={"id": id}, data=category.model_dump(mode="python")
+        )
+        if not updated:
+            logger.error("Category not found")
+            raise HTTPException(status_code=404, detail="Category not found")
+        return Category.model_validate(updated.model_dump(mode="python"))
 
-        :param id: The unique identifier of the category to update.
-        :param category: A categoryUpdate instance with updated category data.
-        :return: The updated category object.
-        :raises HTTPException: If the category is not found or update fails.
-        """
-
-        try:
-            category = await self.prisma.category.update(
-                where={"id": id},
-                data=category.model_dump(mode="python"),
-            )
-            if not category:
-                logger.error("Category not found")
-                raise HTTPException(status_code=404, detail="Category not found")
-            return Category.model_validate(category.model_dump(mode="python"))
-        except PrismaError as e:
-            logger.error(f"Error updating category: {e}")
-            raise HTTPException(status_code=500, detail=str(e))
-        except ValidationError as e:
-            logger.error(f"Error validating category: {e}")
-            raise HTTPException(status_code=500, detail=str(e))
-        except Exception as e:
-            logger.error(f"Error updating category: {e}")
-            raise HTTPException(status_code=500, detail=str(e))
-
+    @handle_service_exceptions
     async def delete_categories(self) -> Any:
-        """
-        Delete all categories.
+        count = await self.prisma.category.delete_many()
+        return {"message": f"Deleted {count} categories"}
 
-        :return: The deleted category object.
-        :raises HTTPException: If deletion fails.
-        """
-        try:
-            count = await self.prisma.category.delete_many()
-            return {"message": f"Deleted {count} categories"}
-        except PrismaError as e:
-            logger.error(f"Error deleting categories: {e}")
-            raise HTTPException(status_code=500, detail=str(e))
-        except ValidationError as e:
-            logger.error(f"Error validating categories: {e}")
-            raise HTTPException(status_code=500, detail=str(e))
-        except Exception as e:
-            logger.error(f"Error deleting categories: {e}")
-            raise HTTPException(status_code=500, detail=str(e))
-
+    @handle_service_exceptions
     async def delete_category(self, id: int) -> Category:
-        """
-        Delete a category by its ID.
-
-        :param id: The unique identifier of the category to delete.
-        :return: The deleted category object.
-        :raises HTTPException: If the category is not found or deletion fails.
-        """
-        try:
-            category = await self.prisma.category.delete(where={"id": id})
-            if not category:
-                logger.error("Category not found")
-                raise HTTPException(status_code=404, detail="Category not found")
-            return category.model_validate(category.model_dump(mode="python"))
-        except PrismaError as e:
-            logger.error(f"Error deleting category: {e}")
-            raise HTTPException(status_code=500, detail=str(e))
-        except ValidationError as e:
-            logger.error(f"Error validating category: {e}")
-            raise HTTPException(status_code=500, detail=str(e))
-        except Exception as e:
-            logger.error(f"Error deleting category: {e}")
-            raise HTTPException(status_code=500, detail=str(e))
+        category = await self.prisma.category.delete(where={"id": id})
+        if not category:
+            logger.error("Category not found")
+            raise HTTPException(status_code=404, detail="Category not found")
+        return Category.model_validate(category.model_dump(mode="python"))

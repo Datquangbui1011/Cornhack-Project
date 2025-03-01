@@ -19,4 +19,4 @@ class StepBreakdown(StepBreakdownBase):
     id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
