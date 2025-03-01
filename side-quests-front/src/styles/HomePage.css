@@ -1,0 +1,33 @@
+.home-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    text-align: center;
+    font-family: 'Copperplate', sans-serif;
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+.home-text {
+    margin-bottom: 2rem;
+}
+
+.start-button {
+    background-color: #0f0f0f;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    font-family: 'Copperplate', sans-serif;
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+.start-button:hover {
+    background-color: #808080;
+}

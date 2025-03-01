@@ -8,7 +8,7 @@ const Login: React.FC = () => {
 
     const handleLogin = () => {
         // Handle the login logic with backend here
-        navigate('/dashboard');
+        navigate('/home');
     };
 
     return (

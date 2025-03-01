@@ -1,0 +1,41 @@
+.path-choice-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: 'Copperplate', sans-serif;
+    font-weight: bold;
+    text-align: center;
+    font-size: 2rem;
+}
+
+.buttons-container {
+    display: flex;
+    flex-direction: row;
+    /* Change to row for side-by-side */
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.home-text {
+    margin-bottom: 2rem;
+}
+
+.path-button {
+    background-color: #0f0f0f;
+    color: white;
+    border: none;
+    padding: 300px 100px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    font-family: 'Copperplate', sans-serif;
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+.path-button:hover {
+    background-color: #808080;
+}
