@@ -4,11 +4,12 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #282528;
+    background-image: url(./../assets/images/pathchoice-bg.jpeg);
     font-family: 'Copperplate', sans-serif;
     font-weight: bold;
     text-align: center;
     font-size: 2rem;
+    color: white;
 }
 
 .buttons-container {
@@ -26,7 +27,6 @@
 .path-button-tank, .path-button-flank, .path-button-com {
     width: 400px; /* Fixed width */
     height: 500px; /* Fixed height */
-    background-color: #0f0f0f;
     color: white;
     border: none;
     border-radius: 8px;
