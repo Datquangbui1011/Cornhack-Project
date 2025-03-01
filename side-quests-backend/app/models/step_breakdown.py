@@ -5,4 +5,4 @@ class StepBreakdown(BaseModel):
     stepsId: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True

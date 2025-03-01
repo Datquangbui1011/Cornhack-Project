@@ -11,4 +11,4 @@ class Steps(BaseModel):
     steps_completed: Optional[List[StepsCompleted]] = []
 
     class Config:
-        orm_mode = True
+        from_attributes = True

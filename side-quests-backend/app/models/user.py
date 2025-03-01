@@ -3,6 +3,7 @@ from pydantic import BaseModel
 
 from app.models.user_project import UserProject
 
+
 class User(BaseModel):
     id: int
     username: str
@@ -13,4 +14,4 @@ class User(BaseModel):
     user_projects: Optional[List[UserProject]] = []
 
     class Config:
-        orm_mode = True
+        from_attributes = True

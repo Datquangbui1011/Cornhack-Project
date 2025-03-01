@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-py"
 }
@@ -17,6 +11,8 @@ datasource db {
 model Category {
   id      Int       @id
   name    String
+  // When a Category is deleted, its related Projects will be deleted because
+  // the cascade is defined in the Project model's category relation.
   Project Project[]
 }
 
@@ -24,11 +20,12 @@ model Project {
   id           Int           @id @default(autoincrement())
   project_name String
   description  String?
-  dificulty   Int
-  category     Category      @relation(fields: [categoryId], references: [id])
+  dificulty    Int
+  // If a Category is deleted, all Projects referencing it will be removed.
+  category     Category      @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   categoryId   Int
-  created_at   DateTime
-  updated_at   DateTime
+  created_at   DateTime      @default(now())
+  updated_at   DateTime      @updatedAt
   UserProject  UserProject[]
 }
 
@@ -44,33 +41,35 @@ model User {
 model UserProject {
   id             Int              @id
   user           User             @relation(fields: [userId], references: [id])
-  project        Project          @relation(fields: [projectId], references: [id])
+  // When a Project is deleted, its related UserProject records will be removed.
+  project        Project          @relation(fields: [projectId], references: [id], onDelete: Cascade)
   userId         Int
   projectId      Int
   completed      Boolean
   StepsCompleted StepsCompleted[]
-
+  
   @@unique([userId, projectId])
 }
 
 model Steps {
   id             Int              @id @default(autoincrement())
   description    String
-  stepbreakdown  StepBreakdown[]
-  StepsCompleted StepsCompleted[]
+  // Cascade deletion: if a Steps record is removed, then its related breakdowns and completions are also removed.
+  stepbreakdown  StepBreakdown[]  
+  StepsCompleted StepsCompleted[] 
 }
 
 model StepBreakdown {
-  id   Int   @id @default(autoincrement())
-  step Steps @relation(fields: [stepsId], references: [id])
-
+  id      Int   @id @default(autoincrement())
+  // When the parent Steps record is deleted, delete the breakdown.
+  step    Steps @relation(fields: [stepsId], references: [id], onDelete: Cascade)
   stepsId Int
 }
 
 model StepsCompleted {
-  id Int @id @default(autoincrement())
-  userproject   UserProject @relation(fields: [userProjectId], references: [id])
-  steps         Steps       @relation(fields: [stepsId], references: [id])
+  id            Int         @id @default(autoincrement())
+  userproject   UserProject @relation(fields: [userProjectId], references: [id], onDelete: Cascade)
+  steps         Steps       @relation(fields: [stepsId], references: [id], onDelete: Cascade)
   completed     Boolean
   userProjectId Int
   stepsId       Int
