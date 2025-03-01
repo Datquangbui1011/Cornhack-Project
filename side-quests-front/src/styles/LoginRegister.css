@@ -18,6 +18,7 @@
 .login-register-container h1,
 .login-register-container p {
     margin: 0.5rem;
+    color: white;
 }
 
 .login-register-container button {
@@ -28,5 +29,5 @@
     cursor: pointer;
     border-radius: 25px;
     border-width: 3px;
-    border-color: #926d48;
+    border-color: #19579E;
 }
