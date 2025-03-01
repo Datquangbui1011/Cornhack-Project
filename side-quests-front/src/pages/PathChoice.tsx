@@ -13,13 +13,13 @@ const PathChoice: React.FC = () => {
         <div className="path-choice-container">
             <h1>Choose Your Path</h1>
             <div className="buttons-container">
-                <button className="path-button" onClick={() => handleChoice('comander')}>
+                <button className="path-button-com" onClick={() => handleChoice('comander')}>
                     The Comander
                 </button>
-                <button className="path-button" onClick={() => handleChoice('tanker')}>
+                <button className="path-button-tank" onClick={() => handleChoice('tanker')}>
                     The Tanker
                 </button>
-                <button className="path-button" onClick={() => handleChoice('flanker')}>
+                <button className="path-button-flank" onClick={() => handleChoice('flanker')}>
                     The Flanker
                 </button>
             </div>
