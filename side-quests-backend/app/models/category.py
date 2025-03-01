@@ -1,10 +1,17 @@
-from typing import List, Optional
+from typing import Optional
 from pydantic import BaseModel
 
 
 class Category(BaseModel):
     id: int
     name: str
+
+    class Config:
+        from_attributes = True
+
+
+class CategoryUpdate(BaseModel):
+    name: Optional[str]
 
     class Config:
         from_attributes = True

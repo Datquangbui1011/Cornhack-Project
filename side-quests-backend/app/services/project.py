@@ -38,6 +38,8 @@ class ProjectService:
         """
         try:
             projects = await self.prisma.project.find_many(include={"category": True})
+            if projects is None:
+                return []
             return [
                 Project.model_validate(project.model_dump(mode="python"))
                 for project in projects
@@ -87,6 +89,9 @@ class ProjectService:
         """
         try:
             project = await self.prisma.project.find_unique(where={"id": id})
+            if project is None:
+                logger.error("Project not found")
+                raise HTTPException(status_code=404, detail="Project not found")
             return Project.model_validate(project.model_dump(mode="python"))
         except PrismaError as e:
             logger.error(f"Error fetching project by ID: {e}")
@@ -109,12 +114,19 @@ class ProjectService:
         """
 
         try:
-            project = await self.prisma.project.update(
+            update_data = project.model_dump(exclude_unset=True)
+
+            updated_project = await self.prisma.project.update(
                 where={"id": id},
-                data=project.model_dump(mode="python"),
+                data=update_data,
                 include={"category": True},
             )
-            return Project.model_validate(project.model_dump(mode="python"))
+            if not updated_project:
+
+                logger.error("Project not found")
+                raise HTTPException(status_code=404, detail="Project not found")
+
+            return Project.model_validate(updated_project.model_dump(mode="python"))
         except PrismaError as e:
             logger.error(f"Error updating project: {e}")
             raise HTTPException(status_code=500, detail=str(e))
@@ -157,6 +169,11 @@ class ProjectService:
             project = await self.prisma.project.delete(
                 where={"id": id}, include={"category": True}
             )
+
+            if not project:
+                logger.error("Project not found")
+                raise HTTPException(status_code=404, detail="Project not found")
+
             return Project.model_validate(project.model_dump(mode="python"))
         except PrismaError as e:
             logger.error(f"Error deleting project: {e}")

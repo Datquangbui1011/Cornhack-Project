@@ -1,14 +1,25 @@
 from typing import List, Optional
 from pydantic import BaseModel
+from datetime import datetime
 
-from app.models.step_breakdown import StepBreakdown
-from app.models.steps_completed import StepsCompleted
-class Steps(BaseModel):
-    id: int
+from app.models.step_breakdown import StepBreakdown, StepBreakdownCreate, StepBreakdownUpdate
+class StepsBase(BaseModel):
     description: str
-    # References to StepBreakdown and StepsCompleted models
+
+class StepCreate(StepsBase):
+    stepbreakdown: Optional[List[StepBreakdownCreate]] = None
+
+class StepUpdate(BaseModel):
+    description: Optional[str] = None
+
+    stepbreakdown: Optional[List[StepBreakdownUpdate]] = None
+
+class Steps(StepsBase):
+    id: int
+    created_at: datetime
+    updated_at: datetime
+
     stepbreakdown: Optional[List[StepBreakdown]] = []
-    steps_completed: Optional[List[StepsCompleted]] = []
 
     class Config:
-        from_attributes = True
+        orm_mode = True

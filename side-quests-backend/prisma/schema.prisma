@@ -9,7 +9,7 @@ datasource db {
 }
 
 model Category {
-  id      Int       @id
+  id      Int       @id @default(autoincrement())
   name    String
   // When a Category is deleted, its related Projects will be deleted because
   // the cascade is defined in the Project model's category relation.
@@ -39,7 +39,7 @@ model User {
 }
 
 model UserProject {
-  id             Int              @id
+  id             Int              @id @default(autoincrement())
   user           User             @relation(fields: [userId], references: [id])
   // When a Project is deleted, its related UserProject records will be removed.
   project        Project          @relation(fields: [projectId], references: [id], onDelete: Cascade)

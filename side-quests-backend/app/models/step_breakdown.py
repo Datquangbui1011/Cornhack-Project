@@ -1,8 +1,22 @@
+from typing import List, Optional
 from pydantic import BaseModel
+from datetime import datetime
 
-class StepBreakdown(BaseModel):
+
+class StepBreakdownBase(BaseModel):
+    description: str
+
+
+class StepBreakdownCreate(StepBreakdownBase):
+    pass
+
+
+class StepBreakdownUpdate(BaseModel):
+    description: Optional[str] = None
+
+
+class StepBreakdown(StepBreakdownBase):
     id: int
-    stepsId: int
 
     class Config:
-        from_attributes = True
+        orm_mode = True
