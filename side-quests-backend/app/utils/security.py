@@ -5,6 +5,7 @@ from fastapi.security import OAuth2PasswordBearer
 from prisma import Prisma
 from app.models.user import User
 from app.db.prisma_connection import get_prisma
+from app.core.config import settings
 
 
 # Use your existing bcrypt functions
@@ -21,8 +22,7 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
 
 
 # JWT setup
-SECRET_KEY = "your-secret-key"
-ALGORITHM = "HS256"
+
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 
@@ -30,7 +30,7 @@ def create_access_token(
     data: dict,
 ) -> str:
     to_encode = data.copy()
-    return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    return jwt.encode(to_encode, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
 
 
 async def get_current_user(
@@ -45,7 +45,9 @@ async def get_current_user(
         headers={"WWW-Authenticate": "Bearer"},
     )
     try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        payload = jwt.decode(
+            token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM]
+        )
         user_id: int = int(payload.get("sub"))
     except (JWTError, ValueError):
         raise credentials_exception
