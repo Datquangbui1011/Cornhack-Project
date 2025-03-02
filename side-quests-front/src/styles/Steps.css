@@ -4,9 +4,9 @@ body {
     height: 100%;
     margin: 0;
     padding: 0;
-    font-family: 'Chakra Petch', sans-serif;
+    font-family: "Chakra Petch", sans-serif;
     color: white;
-    background-color: #1c1c1c;
+    background-color: #000000;
     overflow-y: auto;
 }
 
@@ -18,7 +18,7 @@ body {
     align-items: center;
     min-height: 100vh;
     padding: 0 15%;
-    background-image: url('./../assets/images/step.jpg');
+    background-image: url("./../assets/images/step.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -121,7 +121,7 @@ body {
 /* Button Styles */
 button,
 .close-button {
-    font-family: 'Chakra Petch', sans-serif;
+    font-family: "Chakra Petch", sans-serif;
     padding: 10px 20px;
     font-size: 1.8rem;
     font-weight: bold;
@@ -224,7 +224,6 @@ button:hover {
 
 /* Pulse Animation */
 @keyframes pulse {
-
     0%,
     100% {
         box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
@@ -286,10 +285,8 @@ button:hover {
     color: #ffffff;
 }
 
-
 /* Mobile Styles */
 @media (max-width: 768px) {
-
     .detail-popup,
     .well-done-popup {
         width: 95%;

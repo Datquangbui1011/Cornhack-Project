@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import '../styles/LoginRegister.css';
-import './../index.css';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import "../styles/LoginRegister.css";
+import "./../index.css";
 
-const BASE_URL = 'http://127.0.0.1:8000';
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const Login: React.FC = () => {
     const navigate = useNavigate();
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
 
     const handleLogin = async (event: React.FormEvent) => {
         event.preventDefault();
@@ -18,38 +18,38 @@ const Login: React.FC = () => {
         if (username && password) {
             try {
                 const params = new URLSearchParams();
-                params.append('username', username);
-                params.append('password', password);
+                params.append("username", username);
+                params.append("password", password);
 
-                console.log('Payload being sent:', params.toString());
+                console.log("Payload being sent:", params.toString());
 
                 const response = await axios.post(`${BASE_URL}/token`, params, {
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
+                        "Content-Type": "application/x-www-form-urlencoded",
                     },
                 });
 
                 if (response.status === 200) {
-                    console.log(response.data)
+                    console.log(response.data);
                     const token = response.data.access_token;
-                    localStorage.setItem('authToken', token);
-                    console.log(`Token being saved ${token}`)
-                    console.log(localStorage.getItem('authToken'))
-                    navigate('/home');
+                    localStorage.setItem("authToken", token);
+                    navigate("/home");
                 }
             } catch (error: any) {
-                console.log('Error response:', error.response?.data);
+                console.log("Error response:", error.response?.data);
 
                 if (error.response && error.response.status === 401) {
-                    alert('Invalid authentication');
+                    alert("Invalid authentication");
                 } else if (error.response && error.response.status === 422) {
-                    alert('Invalid input. Please check your username and password.');
+                    alert(
+                        "Invalid input. Please check your username and password."
+                    );
                 } else {
-                    alert('An error occurred. Please try again.');
+                    alert("An error occurred. Please try again.");
                 }
             }
         } else {
-            alert('Please enter both username and password');
+            alert("Please enter both username and password");
         }
     };
 

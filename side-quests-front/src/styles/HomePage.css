@@ -6,7 +6,7 @@ body {
     /* Remove default margin */
     padding: 0;
     /* Remove default padding */
-    background-color: #000;
+    background-color: black;
     /* Dark background for contrast */
 }
 
@@ -20,7 +20,7 @@ body {
     /* Full viewport height */
     width: 100vw;
     /* Full viewport width */
-    background-image: url('./../assets/images/astronaut.png');
+    background-image: url("./../assets/images/astronaut.png");
     /* Ensure the path is correct */
     background-size: 12%;
     /* Covers the entire container */
@@ -31,7 +31,7 @@ body {
     background-attachment: fixed;
     /* Ensures the background image stays fixed while scrolling */
     text-align: center;
-    font-family: 'CounterStream', sans-serif;
+    font-family: "CounterStream", sans-serif;
     font-weight: bold;
     font-size: 2rem;
 }
@@ -84,7 +84,7 @@ body {
     /* More rounded shape */
     cursor: pointer;
     transition: all 0.3s ease;
-    font-family: 'Chakra Petch', sans-serif;
+    font-family: "Chakra Petch", sans-serif;
     font-weight: bold;
     border-width: 3px;
     font-size: 2rem;
