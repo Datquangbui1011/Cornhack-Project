@@ -35,9 +35,13 @@ const Roadmap: React.FC = () => {
                             color: '#fff',
                         }}
                         contentStyle={{
-                            background: 'rgba(255, 255, 255, 0.6)',
+                            background: 'rgba(255, 255, 255, 0.6)', // Keep the background
                             color: 'black',
-                            borderRadius: '10px',
+                            borderRadius: '6px', // Reduced border radius for a smaller box
+                            padding: '8px 12px', // Reduced padding for a smaller box
+                            fontSize: '0.9rem', // Smaller font size for the content,
+                            
+
                         }}
                     >
                         <h3 className="project-title">{project.title}</h3>

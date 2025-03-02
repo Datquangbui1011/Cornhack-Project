@@ -1,53 +1,94 @@
+/* Ensure the HTML and body take full height */
+html, body {
+    height: 100%;
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+}
+
+/* Roadmap container styling */
 .roadmap-container {
     display: flex;
+    background-image: url('./../assets/images/roadMap.jpg');
+    background-size: cover; /* Ensures the image covers the full container */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents tiling */
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     width: 100%;
     height: 100%;
     overflow-y: auto;
-    padding-top: 50px;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    padding-top: 20px;
     font-family: 'Copperplate', sans-serif;
     font-weight: bold;
     text-align: center;
     font-size: 2rem;
     color: white;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.6); /* Dark inner shadow for depth */
 }
 
+/* Project title styling */
 .project-title {
-    margin-top: -50px;
-    margin-bottom: 0.5rem;
-    padding: 10px 0px;
-    background-color: rgba(255, 255, 255, 0.6);
-    color: black;
-    border-radius: 10px;
-    font-size: 2.5rem;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    padding: 8px 15px;
+    margin-bottom: 1rem;
+    background-color: rgba(255, 255, 255, 0.25); /* Softer semi-transparent background */
+    color: #ffffff; /* Neon white text */
+    border-radius: 10px; /* Slightly reduced for a refined look */
+    font-size: 2rem;
+    text-shadow: 0px 0px 6px rgba(255, 255, 255, 0.7); /* Softer glowing effect */
+    letter-spacing: 1px; /* Increased for better readability */
+    box-shadow: 0px 3px 12px rgba(255, 255, 255, 0.5); /* Softer glowing box */
+    transition: transform 0.2s ease, box-shadow 0.3s ease; /* Smooth transition effect */
 }
 
+/* Hover Effect */
+.project-title:hover {
+    transform: scale(1.02); /* Slight scale-up for interactive feel */
+    box-shadow: 0px 5px 18px rgba(255, 255, 255, 0.6); /* Stronger glow on hover */
+}
+
+/* View button styling */
 .view-button {
-    background-color: #0f0f0f;
+    background-color: rgba(15, 15, 15, 0.8); /* Dark background for button */
     color: white;
     border: none;
-    padding: 1rem 2rem;
-    border-radius: 12px;
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px; /* Rounded edges */
     cursor: pointer;
     transition: all 0.3s ease;
     font-family: 'Copperplate', sans-serif;
     font-weight: bold;
-    font-size: 1.5rem;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    font-size: 1.4rem;
+    box-shadow: 0 4px 10px rgba(221, 230, 228, 0.7); /* Neon cyan glow */
+    outline: none; /* Removes default focus outline */
 }
 
+/* Hover effect for view button */
 .view-button:hover {
-    background-color: #808080;
+    background-color: rgba(128, 128, 128, 0.8); /* Slightly lighter background */
     color: white;
     transform: scale(1.1);
+    box-shadow: 0 8px 20px rgba(255, 255, 255, 0.7); /* More intense glow */
 }
 
+/* Active button effect */
 .view-button:active {
     transform: scale(0.95);
+    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.4); /* Soft glow on click */
+}
+
+/* Mobile responsive design */
+@media (max-width: 768px) {
+    .roadmap-container {
+        font-size: 1.5rem; /* Adjust font size for small screens */
+    }
+
+    .project-title {
+        font-size: 2rem; /* Slightly smaller title font */
+    }
+
+    .view-button {
+        font-size: 1.2rem; /* Adjust button font size */
+        padding: 0.8rem 1.5rem;
+    }
 }
