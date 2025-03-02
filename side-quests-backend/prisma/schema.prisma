@@ -48,7 +48,7 @@ model UserProject {
   completed      Boolean
   StepsCompleted StepsCompleted[]
 
-  @@unique([userId, projectId])
+  @@unique([userId, projectId], name: "userId_projectId")
 }
 
 model Steps {

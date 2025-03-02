@@ -18,13 +18,19 @@ class StepCreate(StepsBase):
 
 
 class StepUpdate(BaseModel):
-    description: Optional[str] = None
-    stepbreakdown: Optional[List[StepBreakdownUpdate]] = None
+    completed: bool
 
 
-class Steps(StepsBase):
+class Step(StepsBase):
     id: int
     stepbreakdown: Optional[List[StepBreakdown]] = []
 
     class Config:
         from_attribute = True
+
+
+class StepsCompleted(Step):
+    completed: bool
+
+    class Config:
+        from_attributes = True

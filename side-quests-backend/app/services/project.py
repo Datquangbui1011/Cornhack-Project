@@ -5,7 +5,7 @@ from app.models.project import Project, ProjectCreate, ProjectUpdate, ProjectFro
 from app.models.user_project import UserProject
 from app.utils.decorators import handle_service_exceptions
 from app.core.logging_config import logger
-\
+
 
 class ProjectService:
     """
@@ -42,6 +42,24 @@ class ProjectService:
             )
             for up in user_projects
         ]
+
+    @handle_service_exceptions
+    async def complete_project(
+        self, user_id: int, project_id: int, completed: bool
+    ) -> ProjectFromUser:
+        updated = await self.prisma.userproject.update(
+            where={"userId_projectId": {"userId": user_id, "projectId": project_id}},
+            data={"completed": completed},
+            include={"project": {"include": {"category": True}}},
+        )
+        return ProjectFromUser.model_validate(
+            {
+                **updated.project.model_dump(mode="python", exclude_unset=True),
+                "completed": updated.model_dump(
+                    mode="python",
+                )["completed"],
+            }
+        )
 
     @handle_service_exceptions
     async def insert_project_to_user(

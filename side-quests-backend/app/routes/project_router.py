@@ -23,6 +23,18 @@ async def get_user_projects(
     return await project_service.get_projects_by_user(current_user.id)
 
 
+@router.put("/complete", response_model=ProjectFromUser)
+async def complete_project(
+    project_id: int,
+    completed: bool,
+    current_user: User = Depends(get_current_user),
+    project_service: ProjectService = Depends(get_project_service),
+):
+    return await project_service.complete_project(
+        current_user.id, project_id, completed
+    )
+
+
 @router.post("/user", response_model=UserProject)
 async def insert_project_to_user(
     project_id: int,
