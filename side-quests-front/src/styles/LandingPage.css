@@ -1,80 +1,111 @@
 /* Ensure the HTML and body take full height */
-html, body {
+html,
+body {
     height: 100%;
-    margin: 0; /* Remove default margin */
-    padding: 0; /* Remove default padding */
+    margin: 0;
+    /* Remove default margin */
+    padding: 0;
+    /* Remove default padding */
 }
+
 /* src/styles/LandingPage.css */
 .landing-container {
-    width: 100vw; /* Full width of the viewport */
-    height: 100vh; /* Full height of the viewport */
+    width: 100vw;
+    /* Full width of the viewport */
+    height: 100vh;
+    /* Full height of the viewport */
     background-image: url('./../assets/images/landing_page.jpg');
-    background-size: cover; /* Ensures the image covers the full container */
-    background-position: center; /* Centers the image */
-    background-repeat: no-repeat; /* Prevents tiling */
+    background-size: cover;
+    /* Ensures the image covers the full container */
+    background-position: center;
+    /* Centers the image */
+    background-repeat: no-repeat;
+    /* Prevents tiling */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    font-family: 'Orbitron', sans-serif; /* Futuristic font */
+    font-family: 'CounterStream', sans-serif;
     font-weight: bold;
     color: white;
     font-size: 2rem;
-    background-attachment: fixed; /* Parallax effect */
-    overflow: hidden; /* To prevent overflow on smaller screens */
-    position: relative; /* Needed for positioning child elements */
+    background-attachment: fixed;
+    /* Parallax effect */
+    overflow: hidden;
+    /* To prevent overflow on smaller screens */
+    position: relative;
+    /* Needed for positioning child elements */
 }
 
 /* Header and paragraph text */
 .landing-container h1 {
-    font-size: 4.5rem; /* Larger font for title */
-    color: #ffffff; /* Neon white color */
+    font-size: 4.5rem;
+    /* Larger font for title */
+    color: #ffffff;
+    /* White text */
     margin: 0.5rem;
-    text-shadow: 0px 0px 15px rgba(255, 255, 255, 0.8); /* Glowing effect */
+    text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.8);
+    /* Black shadow for better contrast */
 }
 
 .landing-container p {
-    font-size: 1.8rem; /* Adjusted font size for description */
-    color: #ffffff; /* Neon white */
+    font-size: 1.8rem;
+    /* Adjusted font size for description */
+    color: #ffffff;
+    /* White text */
     margin: 0.5rem;
-    text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.6); /* Glowing effect */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    /* Black shadow */
 }
 
 /* Button styling */
 .landing-container button {
-    margin-top: 2rem;
+    justify-content: center;
+    height: 50px;
+    padding: 0 2rem;
+    margin-top: 1rem;
     padding: 1rem 2rem;
     font-size: 1.5rem;
     font-weight: bold;
     cursor: pointer;
     border-radius: 30px;
     border: none;
-    background-color: #ffffff; /* Neon white background */
+    background-color: #ffffff;
+    font-family: 'CounterStream', sans-serif;
+    /* Neon white background */
     color: #000;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.7); /* Glowing effect */
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    /* Black shadow */
 }
 
 /* Button hover effect */
 .landing-container button:hover {
-    background-color: #ffffff; /* Neon white */
+    background-color: #ffffff;
+    /* Neon white */
     color: #000;
-    transform: scale(1.1); /* Slight button expansion */
-    box-shadow: 0 6px 18px rgba(255, 255, 255, 0.8); /* Increased glowing effect */
+    transform: scale(1.1);
+    /* Slight button expansion */
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.9);
+    /* Increased black shadow */
 }
+
 
 /* Responsive Design for mobile */
 @media (max-width: 600px) {
     .landing-container {
         font-size: 1.5rem;
     }
+
     .landing-container h1 {
         font-size: 3.5rem;
     }
+
     .landing-container p {
         font-size: 1.5rem;
     }
+
     .landing-container button {
         padding: 0.75rem 1.5rem;
         font-size: 1.2rem;

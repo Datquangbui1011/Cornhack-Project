@@ -54,7 +54,7 @@ const Steps: React.FC = () => {
 
             {showConfirmation && (
                 <div className="confirmation-box">
-                    <p>All tasks are complete! Do you want to see again?</p>
+                    <p>All tasks are complete Do you want to see them again</p>
                     <button onClick={() => handleConfirmationChoice('yes')}>Yes</button>
                     <button onClick={() => handleConfirmationChoice('no')}>No</button>
                 </div>

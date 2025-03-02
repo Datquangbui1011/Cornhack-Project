@@ -21,7 +21,7 @@ const HomePage: React.FC = () => {
         <div className="home-container">
             <h1 className="home-title">Hello Adventurer</h1>
             <p className="home-text">
-                {hasChosenPath ? "Let's continue fighting!" : "Are you ready for the adventure?"}
+                {hasChosenPath ? "Let's continue fighting" : "Are you ready to embark on this odyssey"}
             </p>
             <button className="start-button" onClick={handleStart}>
                 Start

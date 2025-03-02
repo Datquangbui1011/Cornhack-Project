@@ -15,10 +15,10 @@ body {
     height: 100vh;
     background-color: #000;
     /* Fallback color */
-    background-image: url('./../assets/images/pathchoice-bg.jpg');
+    background-image: url('./../assets/images/pathchoice-bg.png');
     background-size: cover;
     background-position: center;
-    font-family: 'Copperplate', sans-serif;
+    font-family: 'CounterStream', sans-serif;
     font-weight: bold;
     text-align: center;
     color: white;
@@ -52,7 +52,7 @@ body {
     justify-content: center;
     text-align: center;
     color: white;
-    font-family: 'Copperplate', sans-serif;
+    font-family: 'CounterStream', sans-serif;
     font-weight: bold;
     font-size: 3rem;
 }

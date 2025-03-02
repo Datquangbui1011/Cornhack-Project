@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import '../styles/LoginRegister.css';
+import './../index.css'
 
 const Login: React.FC = () => {
     const navigate = useNavigate();
@@ -21,7 +22,7 @@ const Login: React.FC = () => {
     return (
         <div className="login-register-container">
             <h1>Login</h1>
-            <p>Please login with your existing account.</p>
+            <p>Please login with your existing account</p>
             <div className="form-container">
                 <form onSubmit={handleLogin}>
                     <div>
@@ -45,7 +46,7 @@ const Login: React.FC = () => {
                     <button type="submit">Login</button>
                 </form>
             </div>
-            <p>If you don't have an account, create one.</p>
+            <p>If you dont have an account create one</p>
             <Link to="/register">
                 <button>Register</button>
             </Link>

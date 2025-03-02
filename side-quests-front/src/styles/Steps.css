@@ -11,7 +11,7 @@
     padding: 0 10%;
     box-sizing: border-box;
     color: white;
-    font-family: 'Copperplate', sans-serif;
+    font-family: 'CounterStream', sans-serif;
     font-weight: bold;
     text-align: left;
     background-color: #1c1c1c;
@@ -24,6 +24,7 @@
     0% {
         opacity: 0;
     }
+
     100% {
         opacity: 1;
     }
@@ -44,6 +45,7 @@
         transform: translateY(30px);
         opacity: 0;
     }
+
     100% {
         transform: translateY(0);
         opacity: 1;
@@ -126,6 +128,7 @@
         opacity: 0;
         transform: translate(-50%, -50%) scale(0.5);
     }
+
     100% {
         opacity: 1;
         transform: translate(-50%, -50%) scale(1);

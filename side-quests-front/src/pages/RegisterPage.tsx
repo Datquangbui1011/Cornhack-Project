@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom'; 
+import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import '../styles/LoginRegister.css';
 
@@ -42,7 +42,7 @@ const Register: React.FC = () => {
     return (
         <div className="login-register-container">
             <h1>Register</h1>
-            <p>Please fill in the details to create an account.</p>
+            <p>Please fill in the details to create an account</p>
             <form onSubmit={handleRegister} className="form-container">
                 <div>
                     <label htmlFor="name">Name</label>

@@ -40,7 +40,7 @@ const Roadmap: React.FC = () => {
                             borderRadius: '6px', // Reduced border radius for a smaller box
                             padding: '8px 12px', // Reduced padding for a smaller box
                             fontSize: '0.9rem', // Smaller font size for the content,
-                            
+
 
                         }}
                     >

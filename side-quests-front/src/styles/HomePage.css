@@ -1,9 +1,13 @@
 /* Ensure the HTML and body take full height */
-html, body {
+html,
+body {
     height: 100%;
-    margin: 0; /* Remove default margin */
-    padding: 0; /* Remove default padding */
-    background-color: #000; /* Dark background for contrast */
+    margin: 0;
+    /* Remove default margin */
+    padding: 0;
+    /* Remove default padding */
+    background-color: #000;
+    /* Dark background for contrast */
 }
 
 /* Home container */
@@ -12,108 +16,147 @@ html, body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Full viewport height */
-    width: 100vw; /* Full viewport width */
-    background-image: url('./../assets/images/pathchoice-bg.jpg'); /* Ensure the path is correct */
-    background-size: cover; /* Covers the entire container */
-    background-position: center; /* Centers the image */
-    background-repeat: no-repeat; /* Prevents repetition */
-    background-attachment: fixed; /* Ensures the background image stays fixed while scrolling */
+    height: 100vh;
+    /* Full viewport height */
+    width: 100vw;
+    /* Full viewport width */
+    background-image: url('./../assets/images/astronaut.png');
+    /* Ensure the path is correct */
+    background-size: 12%;
+    /* Covers the entire container */
+    background-position: center;
+    /* Centers the image */
+    background-repeat: no-repeat;
+    /* Prevents repetition */
+    background-attachment: fixed;
+    /* Ensures the background image stays fixed while scrolling */
     text-align: center;
-    font-family: 'Copperplate', sans-serif;
+    font-family: 'CounterStream', sans-serif;
     font-weight: bold;
     font-size: 2rem;
 }
 
 /* Highlight title */
 .home-title {
-    margin-bottom: 0.5rem;
-    padding: 5px 15px; /* Adds space around text */
-    background-color: rgba(255, 255, 255, 0.3); /* Slight transparent background */
-    color: #ffffff; /* Neon white text */
-    border-radius: 10px; /* Slightly rounded edges */
-    font-size: 5rem; /* Larger font */
-    text-shadow: 0px 0px 20px rgba(255, 255, 255, 0.8); /* Glowing neon effect */
+    margin-top: 20px;
+    margin-bottom: 17rem;
+    padding: 5px 20px;
+    /* Adds space around text */
+    /* background-color: rgba(255, 255, 255, 0.3); 
+    /* Slight transparent background */
+    color: #ffffff;
+    /* Neon white text */
+    border-radius: 10px;
+    /* Slightly rounded edges */
+    font-size: 8rem;
+    /* Larger font */
+    text-shadow: 0px 0px 20px rgba(255, 255, 255, 0.8);
+    /* Glowing neon effect */
 }
 
 /* Highlight text */
 .home-text {
+    margin-top: 40px;
     margin-bottom: 2rem;
-    padding: 10px 20px; /* Adds some padding around text */
-    background-color: rgba(255, 255, 255, 0.3); /* Slight transparent background */
-    color: #ffffff; /* Neon white text */
-    border-radius: 10px; /* Slight rounding for better look */
-    font-size: 3rem; /* Slightly larger font */
-    text-shadow: 0px 0px 15px rgba(255, 255, 255, 0.7); /* Glowing neon effect */
+    padding: 10px 20px;
+    /* Adds some padding around text */
+    /* background-color: rgba(255, 255, 255, 0.3);
+    /* Slight transparent background */
+    color: #ffffff;
+    /* Neon white text */
+    border-radius: 10px;
+    /* Slight rounding for better look */
+    font-size: 3rem;
+    /* Slightly larger font */
+    text-shadow: 0px 0px 15px rgba(255, 255, 255, 0.7);
+    /* Glowing neon effect */
 }
 
 /* Start Button */
 .start-button {
-    background-color: #ffffff; /* Neon white background */
-    color: black; /* Text color */
+    background-color: #ffffff;
+    /* Neon white background */
+    color: black;
+    /* Text color */
     border: none;
     padding: 1rem 2rem;
-    border-radius: 25px; /* More rounded shape */
+    border-radius: 25px;
+    /* More rounded shape */
     cursor: pointer;
     transition: all 0.3s ease;
-    font-family: 'Copperplate', sans-serif;
+    font-family: 'CounterStream', sans-serif;
     font-weight: bold;
     border-width: 3px;
     font-size: 2rem;
-    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.7); /* Glowing white shadow */
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.7);
+    /* Glowing white shadow */
 }
 
 /* Button hover effect */
 .start-button:hover {
-    background-color: #ffffff; /* Neon white */
+    background-color: #ffffff;
+    /* Neon white */
     color: black;
-    transform: scale(1.1); /* Enlarges slightly */
-    box-shadow: 0 6px 15px rgba(255, 255, 255, 0.9); /* Brighter glow on hover */
+    transform: scale(1.3);
+    /* Enlarges slightly */
+    box-shadow: 0 6px 15px rgba(255, 255, 255, 0.9);
+    /* Brighter glow on hover */
 }
 
 /* Button click effect */
 .start-button:active {
     transform: scale(0.95);
-    box-shadow: 0 2px 5px rgba(255, 255, 255, 0.5); /* Subtle shadow when clicked */
+    box-shadow: 0 2px 5px rgba(255, 255, 255, 0.5);
+    /* Subtle shadow when clicked */
 }
 
 /* Responsive Design for Mobile */
 @media (max-width: 768px) {
     .home-container {
-        font-size: 1.5rem; /* Adjust font size for mobile */
+        font-size: 1.5rem;
+        /* Adjust font size for mobile */
     }
 
     .home-title {
-        font-size: 3rem; /* Adjust title size for mobile */
+        font-size: 3rem;
+        /* Adjust title size for mobile */
     }
 
     .home-text {
-        font-size: 2rem; /* Adjust text size for mobile */
-        padding: 8px 15px; /* Adjust padding */
+        font-size: 2rem;
+        /* Adjust text size for mobile */
+        padding: 8px 15px;
+        /* Adjust padding */
     }
 
     .start-button {
         padding: 0.8rem 1.5rem;
-        font-size: 1.5rem; /* Adjust button size for mobile */
+        font-size: 1.5rem;
+        /* Adjust button size for mobile */
     }
 }
 
 @media (max-width: 480px) {
     .home-container {
-        font-size: 1.2rem; /* Further adjust font size on smaller screens */
+        font-size: 1.2rem;
+        /* Further adjust font size on smaller screens */
     }
 
     .home-title {
-        font-size: 2.5rem; /* Further adjust title size */
+        font-size: 2.5rem;
+        /* Further adjust title size */
     }
 
     .home-text {
-        font-size: 1.5rem; /* Adjust text size */
-        padding: 6px 12px; /* Further adjust padding */
+        font-size: 1.5rem;
+        /* Adjust text size */
+        padding: 6px 12px;
+        /* Further adjust padding */
     }
 
     .start-button {
         padding: 0.6rem 1.2rem;
-        font-size: 1.2rem; /* Further adjust button size */
+        font-size: 1.2rem;
+        /* Further adjust button size */
     }
 }
