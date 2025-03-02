@@ -6,13 +6,7 @@ from prisma.errors import PrismaError
 from prisma import Prisma
 from app.models.steps import Steps, StepCreate, StepUpdate
 from app.utils.decorators import handle_service_exceptions
-
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
-handler = logging.StreamHandler()
-formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-handler.setFormatter(formatter)
-logger.addHandler(handler)
+from app.core.logging_config import logger
 
 
 class StepsService:

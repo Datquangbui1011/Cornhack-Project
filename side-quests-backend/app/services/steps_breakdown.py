@@ -10,13 +10,7 @@ from app.models.step_breakdown import (
     StepBreakdownUpdate,
 )
 from app.utils.decorators import handle_service_exceptions
-
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
-handler = logging.StreamHandler()
-formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-handler.setFormatter(formatter)
-logger.addHandler(handler)
+from app.core.logging_config import logger
 
 
 class StepBreakdownService:

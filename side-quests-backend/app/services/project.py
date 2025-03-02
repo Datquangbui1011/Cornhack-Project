@@ -1,19 +1,11 @@
-import logging
 from typing import Any, List
 from fastapi import HTTPException
-from pydantic import ValidationError
-from prisma.errors import PrismaError
 from prisma import Prisma
-from app.models.project import Project, ProjectCreate, ProjectUpdate
+from app.models.project import Project, ProjectCreate, ProjectUpdate, ProjectFromUser
+from app.models.user_project import UserProject
 from app.utils.decorators import handle_service_exceptions
-
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
-handler = logging.StreamHandler()
-formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-handler.setFormatter(formatter)
-logger.addHandler(handler)
-
+from app.core.logging_config import logger
+\
 
 class ProjectService:
     """
@@ -32,6 +24,33 @@ class ProjectService:
             Project.model_validate(project.model_dump(mode="python"))
             for project in projects
         ]
+
+    @handle_service_exceptions
+    async def get_projects_by_user(self, user_id: int) -> List[ProjectFromUser]:
+        user_projects = await self.prisma.userproject.find_many(
+            where={"userId": user_id},
+            include={"project": {"include": {"category": True}}},
+        )
+        return [
+            ProjectFromUser.model_validate(
+                {
+                    **up.project.model_dump(mode="python", exclude_unset=True),
+                    "completed": up.model_dump(
+                        mode="python",
+                    )["completed"],
+                }
+            )
+            for up in user_projects
+        ]
+
+    @handle_service_exceptions
+    async def insert_project_to_user(
+        self, user_id: int, project_id: int
+    ) -> UserProject:
+        created = await self.prisma.userproject.create(
+            data={"userId": user_id, "projectId": project_id, "completed": False}
+        )
+        return UserProject.model_validate(created.model_dump(mode="python"))
 
     @handle_service_exceptions
     async def insert_project(self, project: ProjectCreate) -> Project:

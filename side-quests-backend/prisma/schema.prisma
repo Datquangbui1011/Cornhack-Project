@@ -31,9 +31,9 @@ model Project {
 
 model User {
   id              Int           @id @default(autoincrement())
-  username        String
+  username        String        @unique
   hashed_password String
-  email           String
+  email           String        @unique
   role            String
   UserProject     UserProject[]
 }

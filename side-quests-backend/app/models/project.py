@@ -1,39 +1,78 @@
 from typing import List, Optional
-from datetime import datetime
 from pydantic import BaseModel
 
 from app.models.category import Category
-from app.models.user_project import UserProject
 
 
-class Project(BaseModel):
-    id: int
+class ProjectBase(BaseModel):
     project_name: str
     description: Optional[str] = None
     dificulty: int
+
+
+class Project(ProjectBase):
+    id: int
     category: Category
-    created_at: datetime
-    updated_at: datetime
-    # Reference to UserProject model (defined in another file)
 
     class Config:
         from_attributes = True
 
-
-class ProjectCreate(BaseModel):
-    project_name: str
-    description: Optional[str] = None
-    dificulty: int
-    categoryId: int
-
-    class Config:
-        from_atributes = True
 
 class ProjectUpdate(BaseModel):
     project_name: Optional[str] = None
     description: Optional[str] = None
     dificulty: Optional[int] = None
-    categoryId: Optional[int] = None
-    
+
     class Config:
         from_attributes = True
+
+
+class ProjectCreate(ProjectBase):
+    category_id: int
+
+    class Config:
+        from_attributes = True
+
+
+from typing import List, Optional
+from pydantic import BaseModel
+from app.models.category import Category
+
+# Ensure the import for UserProject is correct if needed
+
+
+class ProjectBase(BaseModel):
+    project_name: str
+    description: Optional[str] = None
+    dificulty: int
+
+
+class Project(ProjectBase):
+    id: int
+    category: Category
+
+    class Config:
+        model_config = {"from_attributes": True}
+
+
+class ProjectUpdate(BaseModel):
+    project_name: Optional[str] = None
+    description: Optional[str] = None
+    dificulty: Optional[int] = None
+
+    class Config:
+        model_config = {"from_attributes": True}
+
+
+class ProjectCreate(ProjectBase):
+    category_id: int
+
+    class Config:
+        model_config = {"from_attributes": True}
+
+
+class ProjectFromUser(Project):
+    completed: bool
+
+    class Config:
+        model_config = {"from_attributes": True}
