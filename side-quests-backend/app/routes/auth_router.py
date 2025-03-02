@@ -1,8 +1,6 @@
-from datetime import timedelta
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 from app.db.prisma_connection import get_prisma
-from app.models.user import UserCreate
 from app.services.user import UserService
 from app.utils.security import (
     verify_password,
@@ -11,7 +9,6 @@ from app.utils.security import (
 from prisma import Prisma
 
 router = APIRouter(tags=["Auth"])
-
 
 async def get_user_service(db: Prisma = Depends(get_prisma)) -> UserService:
     return UserService(db)

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useSearchParams } from "react-router-dom";
 import {
     VerticalTimeline,
     VerticalTimelineElement,
@@ -15,11 +16,16 @@ interface Project {
     id: number;
     project_name: string;
     completed: boolean;
+    category: {
+        name: string;
+    };
 }
 
 const Roadmap: React.FC = () => {
     const navigate = useNavigate();
     const [projects, setProjects] = useState<Project[]>([]);
+    const [searchParams] = useSearchParams();
+    const categoryPath = searchParams.get("path");
 
     useEffect(() => {
         const fetchProjects = async () => {
@@ -31,16 +37,21 @@ const Roadmap: React.FC = () => {
             }
 
             try {
-                console.log(token);
-
                 const response = await axios.get(`${BASE_URL}/projects/user`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
                 });
+                const response_list: [] = response.data;
 
                 if (response.status === 200) {
-                    setProjects(response.data);
+                    setProjects(
+                        response_list.filter(
+                            (project: Project) =>
+                                project.category.name ===
+                                localStorage.getItem("path")
+                        )
+                    );
                 } else {
                     alert("Failed to load projects. Please try again later.");
                 }

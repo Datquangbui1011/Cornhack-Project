@@ -4,7 +4,13 @@ from fastapi import HTTPException
 from pydantic import ValidationError
 from prisma.errors import PrismaError
 from prisma import Prisma
-from app.models.steps import Step, StepCreate, StepUpdate, StepsCompleted
+from app.models.steps import (
+    Step,
+    StepCompletedTable,
+    StepCreate,
+    StepUpdate,
+    StepsCompleted,
+)
 from app.utils.decorators import handle_service_exceptions
 from app.core.logging_config import logger
 
@@ -52,24 +58,63 @@ class StepsService:
         ]
 
     @handle_service_exceptions
+    async def create_stepsCompleted(
+        self, project_id: int, step_ids: list[int], user_id: int
+    ) -> dict[str, Any]:
+
+        user_project = await self.prisma.userproject.find_first(
+            where={"userId": user_id, "projectId": project_id}
+        )
+
+        if not user_project:
+            raise ValueError(
+                "UserProject not found for the given user and project IDs."
+            )
+
+        # Prepare data for bulk creation
+        data = [
+            {
+                "stepsId": step_id,  # Directly referencing step ID
+                "userProjectId": user_project.id,  # Directly referencing userProject ID
+                "completed": False,
+            }
+            for step_id in step_ids
+        ]
+
+        # Perform the bulk creation
+        results = await self.prisma.stepscompleted.create_many(data=data)
+        return {"message": "StepsCompleted created successfully", "results": results}
+
+    @handle_service_exceptions
     async def complete_step(
-        self, step_id, user_id, project_id: int, completed: bool
-    ) -> StepsCompleted:
+        self, step_id: int, user_id: int, project_id: int, completed: bool
+    ) -> Any:
+        # Get the UserProject ID from userId and projectId
+        user_project = await self.prisma.userproject.find_unique(
+            where={
+                "userId_projectId": {  # Name of the composite key
+                    "userId": user_id,
+                    "projectId": project_id,
+                }
+            }
+        )
+
+        if not user_project:
+            raise HTTPException(status_code=404, detail="User project not found")
+
+        # Now update StepsCompleted using the UserProject ID
         step = await self.prisma.stepscompleted.update(
             where={
-                "id": step_id,
-                "userproject": {"projectId": project_id, "userId": user_id},
+                "userProjectId_stepsId": {  # Composite key of StepsCompleted
+                    "userProjectId": user_project.id,  # Use the UserProject ID
+                    "stepsId": step_id,
+                }
             },
             data={"completed": completed},
             include={"steps": {"include": {"stepbreakdown": True}}},
         )
 
-        return StepsCompleted.model_validate(
-            {
-                **step.steps.model_dump(mode="python"),
-                "completed": step.model_dump(mode="python")["completed"],
-            }
-        )
+        return {"message": "Step completed successfully"}
 
     @handle_service_exceptions
     async def insert_step(self, step: StepCreate) -> Step:

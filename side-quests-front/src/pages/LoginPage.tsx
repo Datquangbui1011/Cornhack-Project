@@ -33,6 +33,65 @@ const Login: React.FC = () => {
                     console.log(response.data);
                     const token = response.data.access_token;
                     localStorage.setItem("authToken", token);
+
+                    const response_2 = await axios.get(
+                        `${BASE_URL}/projects/user`,
+                        {
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                            },
+                        }
+                    );
+                    console.log(response_2.data <= 0);
+                    if (response_2.data.length <= 0) {
+                        const projects: [] = (
+                            await axios.get(`${BASE_URL}/projects`)
+                        ).data;
+                        let i = 1;
+                        projects.forEach(async (project: any) => {
+                            console.log(project);
+                            try {
+                                await axios.post(
+                                    `${BASE_URL}/projects/user`,
+                                    {},
+                                    {
+                                        params: { project_id: project.id },
+                                        headers: {
+                                            Authorization: `Bearer ${token}`,
+                                        },
+                                    }
+                                );
+
+                                // Prepare the data for step creation
+                                const data = {
+                                    project_id: project.id,
+                                    step_ids: [] as number[],
+                                };
+
+                                for (let j = i; j < i + 10; j++) {
+                                    data.step_ids.push(j);
+                                }
+                                console.log(data, i);
+                                i += 10;
+                                // Post to the steps creation endpoint
+                                await axios.post(
+                                    `${BASE_URL}/steps/create/user`,
+                                    data,
+                                    {
+                                        headers: {
+                                            Authorization: `Bearer ${token}`,
+                                            "Content-Type": "application/json",
+                                        },
+                                    }
+                                );
+                            } catch (error: any) {
+                                console.error(
+                                    "Error posting steps:",
+                                    error.response?.data || error.message
+                                );
+                            }
+                        });
+                    }
                     navigate("/home");
                 }
             } catch (error: any) {

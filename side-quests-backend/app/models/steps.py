@@ -15,7 +15,10 @@ class StepsBase(BaseModel):
 
 class StepCreate(StepsBase):
     stepbreakdown: List[StepBreakdownCreate] = None
-
+    
+class StepsCreateRequest(BaseModel):
+    project_id: int
+    step_ids: List[int]
 
 class StepUpdate(BaseModel):
     completed: bool
@@ -34,3 +37,8 @@ class StepsCompleted(Step):
 
     class Config:
         from_attributes = True
+class StepCompletedTable(BaseModel):
+    id: int
+    userProjectId: int
+    stepsId: int
+    completed: bool

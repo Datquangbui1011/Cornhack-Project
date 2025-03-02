@@ -1,11 +1,15 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import './../styles/PathChoice.css';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import "./../styles/PathChoice.css";
+import axios from "axios";
+
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const PathChoice: React.FC = () => {
     const navigate = useNavigate();
 
-    const handleChoice = (choice: string) => {
+    const handleChoice = async (choice: string) => {
+        localStorage.setItem("path", choice);
         navigate(`/roadmap?path=${choice}`);
     };
 
@@ -13,7 +17,10 @@ const PathChoice: React.FC = () => {
         <div className="path-choice-container">
             <h1>Choose Your Path</h1>
             <div className="buttons-container">
-                <div className="card-container" onClick={() => handleChoice('crewmember')}>
+                <div
+                    className="card-container"
+                    onClick={() => handleChoice("crewmember")}
+                >
                     <div className="card">
                         <div className="card-front path-button-crew">
                             <span className="button-text">Crew Member</span>
@@ -26,7 +33,10 @@ const PathChoice: React.FC = () => {
                     </div>
                 </div>
 
-                <div className="card-container" onClick={() => handleChoice('pilot')}>
+                <div
+                    className="card-container"
+                    onClick={() => handleChoice("pilot")}
+                >
                     <div className="card">
                         <div className="card-front path-button-pilot">
                             <span className="button-text">Pilot</span>
@@ -39,7 +49,10 @@ const PathChoice: React.FC = () => {
                     </div>
                 </div>
 
-                <div className="card-container" onClick={() => handleChoice('commander')}>
+                <div
+                    className="card-container"
+                    onClick={() => handleChoice("commander")}
+                >
                     <div className="card">
                         <div className="card-front path-button-commander">
                             <span className="button-text">Commander</span>

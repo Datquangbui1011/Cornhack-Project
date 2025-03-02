@@ -1,6 +1,13 @@
 from fastapi import APIRouter, Depends
 from typing import List
-from app.models.steps import Step, StepCreate, StepUpdate, StepsCompleted
+from app.models.steps import (
+    Step,
+    StepCompletedTable,
+    StepCreate,
+    StepUpdate,
+    StepsCompleted,
+    StepsCreateRequest,
+)
 from app.models.user import User
 from app.services.steps import StepsService
 from app.db.prisma_connection import get_prisma
@@ -29,7 +36,7 @@ async def read_steps_by_project_user(
     return await service.get_steps_by_project_user(project_id, current_user.id)
 
 
-@router.put("/complete/{id}", response_model=StepsCompleted)
+@router.put("/complete/{id}")
 async def complete_step(
     id: int,
     completed: bool,
@@ -38,6 +45,19 @@ async def complete_step(
     current_user: User = Depends(get_current_user),
 ):
     return await service.complete_step(id, current_user.id, project_id, completed)
+
+
+@router.post("/create/user", response_model=dict)
+async def create_steps_to_user(
+    request: StepsCreateRequest,
+    service: StepsService = Depends(get_steps_service),
+    current_user: User = Depends(get_current_user),
+):
+    return await service.create_stepsCompleted(
+        project_id=request.project_id,
+        step_ids=request.step_ids,
+        user_id=current_user.id,
+    )
 
 
 @router.post("/", response_model=Step)

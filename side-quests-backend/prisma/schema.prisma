@@ -64,7 +64,7 @@ model StepBreakdown {
   // When the parent Steps record is deleted, delete the breakdown.
   step    Steps @relation(fields: [stepsId], references: [id], onDelete: Cascade)
   stepsId Int
-  description String @unique
+  description String
 }
 
 model StepsCompleted {
@@ -75,5 +75,5 @@ model StepsCompleted {
   userProjectId Int
   stepsId       Int
 
-  @@unique([userProjectId, stepsId])
+  @@unique([userProjectId, stepsId]) 
 }
