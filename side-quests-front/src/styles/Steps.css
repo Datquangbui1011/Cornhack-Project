@@ -1,0 +1,42 @@
+.steps-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100vh;
+    padding: 0 40%;
+    box-sizing: border-box;
+    color: white;
+    font-family: 'Copperplate', sans-serif;
+    font-weight: bold;
+    text-align: left;
+}
+
+.step {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.step input[type="checkbox"] {
+    margin-right: 15px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.step-content h3 {
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+.step-content p {
+    margin: 5px 0 0 20px;
+    font-size: 2rem;
+}
+
+.step.completed .step-content h3,
+.step.completed .step-content p {
+    text-decoration: line-through;
+    color: #d3d3d3;
+}

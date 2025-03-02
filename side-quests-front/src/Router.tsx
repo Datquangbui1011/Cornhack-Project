@@ -6,6 +6,7 @@ import RegisterPage from './pages/RegisterPage';
 import HomePage from './pages/HomePage';
 import PathChoice from './pages/PathChoices';
 import Roadmap from './pages/Roadmap';
+import Steps from './pages/Steps';
 
 const AppRouter: React.FC = () => {
     return (
@@ -17,6 +18,7 @@ const AppRouter: React.FC = () => {
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/path-choice" element={<PathChoice />} />
                 <Route path="/roadmap" element={<Roadmap />} />
+                <Route path="/project-details" element={<Steps />} />
             </Routes>
         </Router>
     );
