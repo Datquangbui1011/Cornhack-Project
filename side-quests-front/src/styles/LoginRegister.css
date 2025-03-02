@@ -18,7 +18,7 @@ body {
     background-size: cover;
     width: 100%;
     text-align: center;
-    font-family: 'CounterStream', sans-serif;
+    font-family: 'Chakra Petch', sans-serif;
     font-weight: bold;
     font-size: 2rem;
     color: white;
@@ -32,6 +32,10 @@ body {
     /* Neon white color */
     text-shadow: 0px 0px 15px rgba(255, 255, 255, 0.6);
     /* Glowing effect */
+}
+
+.h1 {
+    font-family: 'CounterStream', sans-serif;
 }
 
 .login-register-container p {
@@ -56,6 +60,7 @@ body {
     box-shadow: 0 4px 15px rgba(255, 255, 255, 0.7);
     /* Glowing box shadow */
     z-index: 1;
+    font-family: 'Chakra Petch', sans-serif;
 }
 
 /* Input fields styling */
@@ -71,9 +76,10 @@ body {
     /* Dark background */
     color: #fff;
     outline: none;
-    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+    box-shadow: 5px 5px 5px rgba(100, 100, 100, 0.5);
     /* Glowing input */
     transition: all 0.3s ease;
+    font-family: 'Chakra Petch', sans-serif;
 }
 
 .form-container input:focus {
@@ -105,6 +111,7 @@ body {
     background-color: #ffffff;
     /* Neon white */
     color: #000;
+    font-family: 'Chakra Petch', sans-serif;
     transition: background-color 0.3s ease, transform 0.2s ease;
     box-shadow: 0 4px 10px rgba(255, 255, 255, 0.7);
     /* Glowing button */
@@ -121,6 +128,7 @@ body {
 
 /* Button for login link */
 .login-register-container a button {
+    font-family: 'Chakra Petch', sans-serif;
     background-color: transparent;
     color: #ffffff;
     /* Neon white */

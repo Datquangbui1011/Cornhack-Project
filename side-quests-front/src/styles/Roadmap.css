@@ -25,7 +25,7 @@ body {
     height: 100%;
     overflow-y: auto;
     padding-top: 20px;
-    font-family: 'CounterStream', sans-serif;
+    font-family: 'Chakra Petch', sans-serif;
     font-weight: bold;
     text-align: center;
     font-size: 2rem;
@@ -74,7 +74,7 @@ body {
     /* Rounded edges */
     cursor: pointer;
     transition: all 0.3s ease;
-    font-family: 'CounterStream', sans-serif;
+    font-family: 'Chakra Petch', sans-serif;
     font-weight: bold;
     font-size: 1.4rem;
     box-shadow: 0 4px 10px rgba(221, 230, 228, 0.7);

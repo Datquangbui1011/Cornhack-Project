@@ -20,6 +20,8 @@ const PathChoice: React.FC = () => {
                         </div>
                         <div className="card-back">
                             <p>Be part of the crew and support the mission</p>
+                            <br />
+                            <p>Recomended for beginer programmers</p>
                         </div>
                     </div>
                 </div>
@@ -31,6 +33,8 @@ const PathChoice: React.FC = () => {
                         </div>
                         <div className="card-back">
                             <p>Take control and navigate the journey</p>
+                            <br />
+                            <p>Recomended for Intermediate programmers</p>
                         </div>
                     </div>
                 </div>
@@ -42,6 +46,8 @@ const PathChoice: React.FC = () => {
                         </div>
                         <div className="card-back">
                             <p>Lead the mission and make critical decisions</p>
+                            <br />
+                            <p>Recomended for advanced programmers</p>
                         </div>
                     </div>
                 </div>
