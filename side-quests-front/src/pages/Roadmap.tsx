@@ -71,7 +71,7 @@ const Roadmap: React.FC = () => {
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 1, delay: 0.5 }}
             >
-                Explore Your Journey!
+                Explore Your Journey
             </motion.p>
             <VerticalTimeline lineColor="#e0e0e0">
                 {projects.map((project, index) => (
