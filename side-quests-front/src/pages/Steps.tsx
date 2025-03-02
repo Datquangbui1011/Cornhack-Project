@@ -5,8 +5,6 @@ const initialStepsData = [
     { id: 1, title: 'Step 1', description: 'Description for step 1.', details: ["detail1", "detail2"], completed: false },
     { id: 2, title: 'Step 2', description: 'Description for step 2.', details: ["detail1", "detail2", "detail3"], completed: false },
     { id: 3, title: 'Step 3', description: 'Description for step 3.', details: ["detail1"], completed: false },
-    { id: 4, title: 'Step 5', description: 'Description for step 1.', details: ["detail1", "detail2"], completed: false },
-    { id: 5, title: 'Step 3', description: 'Description for step 2.', details: ["detail1", "detail2"], completed: false },
     { id: 6, title: 'Step 2', description: 'Description for step 3.', details: ["detail1", "detail2"], completed: false },
 ];
 
@@ -32,8 +30,10 @@ const Steps: React.FC = () => {
     const handleConfirmationChoice = (choice: string) => {
         if (choice === 'yes') {
             setShowWellDone(true);
+        } else {
+            setShowConfirmation(false);
         }
-        setShowConfirmation(false);
+
     };
 
     return (
@@ -54,7 +54,7 @@ const Steps: React.FC = () => {
 
             {showConfirmation && (
                 <div className="confirmation-box">
-                    <p>All tasks are complete Do you want to see them again</p>
+                    <p>All tasks are complete! Do you want to see them again?</p>
                     <button onClick={() => handleConfirmationChoice('yes')}>Yes</button>
                     <button onClick={() => handleConfirmationChoice('no')}>No</button>
                 </div>
