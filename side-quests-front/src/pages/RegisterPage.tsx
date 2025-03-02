@@ -1,41 +1,65 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import axios from 'axios';
 import '../styles/LoginRegister.css';
 
-// const Register: React.FC = () => {
-//     const navigate = useNavigate();
-
-//     const handleRegister = () => {
-//         // Handle the login logic with backend here
-//         navigate('/login');
-//     };
-
-//     return (
-//         <div className="login-register-container">
-//             <h1>Register</h1>
-//             <p>Please create an account.</p>
-//             {/* Add form elements here */}
-//             <button onClick={handleRegister}>Register</button>
-//         </div>
-//     );
-// };
+const BASE_URL = 'http://127.0.0.1:8000';
 
 const Register: React.FC = () => {
     const navigate = useNavigate();
-    const [name, setName] = useState('');
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
 
-    const handleRegister = (event: React.FormEvent) => {
+    const clearForm = () => {
+        setEmail('');
+        setPassword('');
+        setConfirmPassword('');
+    };
+
+    const handleRegister = async (event: React.FormEvent) => {
         event.preventDefault();
-        // Handle the registration logic with backend here
-        if (name && username && password && email) {
-            navigate('/home');
-        } else {
+
+        if (!email || !password || !confirmPassword) {
             alert('Please fill out all fields');
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            alert('Passwords do not match');
+            return;
+        }
+
+        try {
+            const response = await axios.post(`${BASE_URL}/users/`, {
+                email,
+                role: "user",
+                password,
+            });
+
+            if (response.status === 201) {
+                if (response.data?.id) {
+                    alert('Registration successful! You can now log in.');
+                    navigate('/login');
+                } else {
+                    alert('Unexpected response format.');
+                }
+            }
+        } catch (error: any) {
+            if (error.response) {
+                if (error.response.status === 404) {
+                    alert('Error: The requested resource was not found.');
+                } else if (error.response.data?.detail) {
+                    alert(error.response.data.detail);
+                } else {
+                    alert('An error occurred during registration.');
+                }
+            } else {
+                alert('Network error. Please try again.');
+            }
+        } finally {
+            clearForm();
         }
     };
 
@@ -44,24 +68,6 @@ const Register: React.FC = () => {
             <h1>Register</h1>
             <p>Please fill in the details to create an account</p>
             <form onSubmit={handleRegister} className="form-container">
-                <div>
-                    <label htmlFor="name">Name</label>
-                    <input
-                        type="text"
-                        id="name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label htmlFor="username">Username</label>
-                    <input
-                        type="text"
-                        id="username"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                    />
-                </div>
                 <div>
                     <label htmlFor="email">Email</label>
                     <input
@@ -78,6 +84,15 @@ const Register: React.FC = () => {
                         id="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                    />
+                </div>
+                <div>
+                    <label htmlFor="confirmPassword">Confirm Password</label>
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
                     />
                 </div>
                 <button type="submit">Register</button>

@@ -11,12 +11,15 @@ from app.routes import (
 )
 
 app = FastAPI(lifespan=lifespan)
-
+# Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
+    allow_origins=["*"],  # Allows specific origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all HTTP methods
+    allow_headers=["*"],  # Allows all headers, including Authorization
 )
+
 
 app.include_router(project_router.router)
 

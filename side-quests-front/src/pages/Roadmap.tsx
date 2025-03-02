@@ -6,7 +6,7 @@ import 'react-vertical-timeline-component/style.min.css';
 import '../styles/Roadmap.css';
 import { motion } from 'framer-motion';
 
-const BASE_URL = 'YOUR_BASE_URL_HERE';
+const BASE_URL = 'http://127.0.0.1:8000';
 
 interface Project {
     id: number;
@@ -28,7 +28,10 @@ const Roadmap: React.FC = () => {
             }
 
             try {
-                const response = await axios.get(`${BASE_URL}/projects`, {
+
+                console.log(token)
+
+                const response = await axios.get(`${BASE_URL}/projects/user`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
