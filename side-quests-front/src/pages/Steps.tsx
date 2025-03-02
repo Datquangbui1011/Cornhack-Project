@@ -23,6 +23,8 @@ const Steps: React.FC = () => {
     // Extract project ID from the navigation state
     const project = location.state?.project;
     const projectId = project?.id;
+    const projectCompleted = project?.completed;
+
 
     useEffect(() => {
         const fetchSteps = async () => {
@@ -66,15 +68,82 @@ const Steps: React.FC = () => {
         const allCompleted = stepsData.every(step => step.completed);
         if (allCompleted && stepsData.length > 0) {
             setShowWellDone(true);
+            updateProjectCompletion(projectId, !projectCompleted);
         }
-    }, [stepsData]);
+    }, [stepsData, projectId, projectCompleted]);
 
-    const handleTaskCompletion = (id: number) => {
+    const handleTaskCompletion = async (id: number) => {
         const updatedSteps = stepsData.map(step =>
             step.id === id ? { ...step, completed: !step.completed } : step
         );
+
+        // Find the step being updated to determine its new completion status
+        const updatedStep = updatedSteps.find(step => step.id === id);
+        const newCompletionStatus = updatedStep ? updatedStep.completed : false;
+
         setStepsData(updatedSteps);
+
+        // Send the updated completion status to the backend
+        try {
+            const token = localStorage.getItem('authToken');
+            if (!token) {
+                alert('No authentication token found. Please log in.');
+                navigate('/login');
+                return;
+            }
+
+            await axios.put(
+                `${BASE_ADDRESS}/steps/complete/${id}`,
+                null,
+                {
+                    params: {
+                        project_id: projectId,
+                        completed: newCompletionStatus, // Set the new completion status
+                    },
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                }
+            );
+            console.log(`Step ${id} completion status updated in the backend.`);
+        } catch (error) {
+            console.error('Error updating task completion in the backend:', error);
+            alert('Failed to update task completion. Please try again.');
+        }
     };
+
+    const updateProjectCompletion = async (projectId: number, completed: boolean) => {
+        try {
+            const token = localStorage.getItem('authToken');
+            if (!token) {
+                alert('No authentication token found. Please log in.');
+                navigate('/login');
+                return;
+            }
+
+            await axios.put(
+                `${BASE_ADDRESS}/projects/complete`,
+                null,
+                {
+                    params: {
+                        project_id: projectId,
+                        completed: completed,
+                    },
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                }
+            );
+
+            console.log(`Project ${projectId} completion status updated to ${completed}`);
+        } catch (error) {
+            console.error('Error updating project completion:', error);
+            alert('Failed to update project completion. Please try again.');
+        }
+    };
+
 
     return (
         <div className="steps-container">

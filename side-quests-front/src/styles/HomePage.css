@@ -76,7 +76,7 @@ body {
 .start-button {
     background-color: #ffffff;
     /* Neon white background */
-    color: black;
+    color: #000;
     /* Text color */
     border: none;
     padding: 1rem 2rem;

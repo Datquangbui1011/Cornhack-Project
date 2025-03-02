@@ -38,7 +38,7 @@ const Register: React.FC = () => {
                 password,
             });
 
-            if (response.status === 201) {
+            if (response.status === 200) {
                 if (response.data?.id) {
                     alert('Registration successful! You can now log in.');
                     navigate('/login');
