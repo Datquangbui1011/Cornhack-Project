@@ -4,7 +4,6 @@ from pydantic import BaseModel
 
 class UserBase(BaseModel):
     email: str
-    username: str
     role: str
 
     class Config:
@@ -17,9 +16,8 @@ class UserCreate(UserBase):
 
 class UserUpdate(BaseModel):
     email: Optional[str] = None
-    username: Optional[str] = None
     role: Optional[str] = None
-    password: Optional[str] = None  # If provided, this new password will be hashed.
+    password: Optional[str] = None
 
     class Config:
         from_attributes = True
@@ -28,7 +26,6 @@ class UserUpdate(BaseModel):
 class UserLogin(BaseModel):
     id: int
     email: str
-    username: str
     hashed_password: str
 
 
