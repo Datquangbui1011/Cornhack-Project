@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import axios from 'axios';
-import './../styles/Steps.css';
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import axios from "axios";
+import "./../styles/Steps.css";
 
-const BASE_ADDRESS = 'http://127.0.0.1:8000';
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 interface Step {
     id: number;
@@ -25,28 +25,27 @@ const Steps: React.FC = () => {
     const projectId = project?.id;
     const projectCompleted = project?.completed;
 
-
     useEffect(() => {
         const fetchSteps = async () => {
             try {
-                const token = localStorage.getItem('authToken'); // Get the auth token
+                const token = localStorage.getItem("authToken"); // Get the auth token
                 if (!token) {
-                    alert('No authentication token found. Please log in.');
-                    navigate('/login');
+                    alert("No authentication token found. Please log in.");
+                    navigate("/login");
                     return;
                 }
 
                 if (!projectId) {
-                    alert('Project ID not found.');
-                    navigate('/roadmap');
+                    alert("Project ID not found.");
+                    navigate("/roadmap");
                     return;
                 }
 
-                const response = await axios.get(`${BASE_ADDRESS}/steps/user`, {
+                const response = await axios.get(`${BASE_URL}/steps/user`, {
                     params: { project_id: projectId },
                     headers: {
                         Authorization: `Bearer ${token}`,
-                        'Content-Type': 'application/json',
+                        "Content-Type": "application/json",
                     },
                 });
 
@@ -56,8 +55,8 @@ const Steps: React.FC = () => {
 
                 console.log(response.data);
             } catch (error) {
-                console.error('Error fetching steps:', error);
-                alert('Failed to load steps. Please try again.');
+                console.error("Error fetching steps:", error);
+                alert("Failed to load steps. Please try again.");
             }
         };
 
@@ -65,7 +64,7 @@ const Steps: React.FC = () => {
     }, [projectId, navigate]);
 
     useEffect(() => {
-        const allCompleted = stepsData.every(step => step.completed);
+        const allCompleted = stepsData.every((step) => step.completed);
         if (allCompleted && stepsData.length > 0) {
             setShowWellDone(true);
             updateProjectCompletion(projectId, !projectCompleted);
@@ -73,87 +72,92 @@ const Steps: React.FC = () => {
     }, [stepsData, projectId, projectCompleted]);
 
     const handleTaskCompletion = async (id: number) => {
-        const updatedSteps = stepsData.map(step =>
+        const updatedSteps = stepsData.map((step) =>
             step.id === id ? { ...step, completed: !step.completed } : step
         );
 
         // Find the step being updated to determine its new completion status
-        const updatedStep = updatedSteps.find(step => step.id === id);
+        const updatedStep = updatedSteps.find((step) => step.id === id);
         const newCompletionStatus = updatedStep ? updatedStep.completed : false;
 
         setStepsData(updatedSteps);
 
         // Send the updated completion status to the backend
         try {
-            const token = localStorage.getItem('authToken');
+            const token = localStorage.getItem("authToken");
             if (!token) {
-                alert('No authentication token found. Please log in.');
-                navigate('/login');
+                alert("No authentication token found. Please log in.");
+                navigate("/login");
                 return;
             }
 
-            await axios.put(
-                `${BASE_ADDRESS}/steps/complete/${id}`,
-                null,
-                {
-                    params: {
-                        project_id: projectId,
-                        completed: newCompletionStatus, // Set the new completion status
-                    },
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        'Content-Type': 'application/json',
-                    },
-                }
-            );
+            await axios.put(`${BASE_URL}/steps/complete/${id}`, null, {
+                params: {
+                    project_id: projectId,
+                    completed: newCompletionStatus, // Set the new completion status
+                },
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+            });
             console.log(`Step ${id} completion status updated in the backend.`);
         } catch (error) {
-            console.error('Error updating task completion in the backend:', error);
-            alert('Failed to update task completion. Please try again.');
+            console.error(
+                "Error updating task completion in the backend:",
+                error
+            );
+            alert("Failed to update task completion. Please try again.");
         }
     };
 
-    const updateProjectCompletion = async (projectId: number, completed: boolean) => {
+    const updateProjectCompletion = async (
+        projectId: number,
+        completed: boolean
+    ) => {
         try {
-            const token = localStorage.getItem('authToken');
+            const token = localStorage.getItem("authToken");
             if (!token) {
-                alert('No authentication token found. Please log in.');
-                navigate('/login');
+                alert("No authentication token found. Please log in.");
+                navigate("/login");
                 return;
             }
 
-            await axios.put(
-                `${BASE_ADDRESS}/projects/complete`,
-                null,
-                {
-                    params: {
-                        project_id: projectId,
-                        completed: completed,
-                    },
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        'Content-Type': 'application/json',
-                    },
-                }
-            );
+            await axios.put(`${BASE_URL}/projects/complete`, null, {
+                params: {
+                    project_id: projectId,
+                    completed: completed,
+                },
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+            });
 
-            console.log(`Project ${projectId} completion status updated to ${completed}`);
+            console.log(
+                `Project ${projectId} completion status updated to ${completed}`
+            );
         } catch (error) {
-            console.error('Error updating project completion:', error);
-            alert('Failed to update project completion. Please try again.');
+            console.error("Error updating project completion:", error);
+            alert("Failed to update project completion. Please try again.");
         }
     };
-
 
     return (
         <div className="steps-container">
             {/* Back Button */}
-            <button className="back-button" onClick={() => navigate('/roadmap')}>
+            <button
+                className="back-button"
+                onClick={() => navigate("/roadmap")}
+            >
                 ⬅ Back
             </button>
 
             {stepsData.map((step) => (
-                <div key={step.id} className={`step ${step.completed ? 'completed' : ''}`}>
+                <div
+                    key={step.id}
+                    className={`step ${step.completed ? "completed" : ""}`}
+                >
                     <div className="step-content">
                         <div className="step-info">
                             <input
@@ -169,7 +173,9 @@ const Steps: React.FC = () => {
                         <button
                             className="detail-button"
                             onClick={() =>
-                                setSelectedDetail(step.stepbreakdown.map(b => b.description))
+                                setSelectedDetail(
+                                    step.stepbreakdown.map((b) => b.description)
+                                )
                             }
                         >
                             Detail
@@ -180,9 +186,15 @@ const Steps: React.FC = () => {
 
             {showWellDone && (
                 <>
-                    <div className="popup-overlay" onClick={() => setShowWellDone(false)}></div>
+                    <div
+                        className="popup-overlay"
+                        onClick={() => setShowWellDone(false)}
+                    ></div>
                     <div className="well-done-popup">
-                        <button className="close-button" onClick={() => setShowWellDone(false)}>
+                        <button
+                            className="close-button"
+                            onClick={() => setShowWellDone(false)}
+                        >
                             ✖
                         </button>
                         <h1>WELL DONE</h1>
@@ -193,9 +205,19 @@ const Steps: React.FC = () => {
 
             {selectedDetail && (
                 <>
-                    <div className="popup-overlay" onClick={() => setSelectedDetail(null)}></div>
-                    <div className={`detail-popup ${selectedDetail ? '' : 'hidden'}`}>
-                        <button className="close-button" onClick={() => setSelectedDetail(null)}>
+                    <div
+                        className="popup-overlay"
+                        onClick={() => setSelectedDetail(null)}
+                    ></div>
+                    <div
+                        className={`detail-popup ${
+                            selectedDetail ? "" : "hidden"
+                        }`}
+                    >
+                        <button
+                            className="close-button"
+                            onClick={() => setSelectedDetail(null)}
+                        >
                             ✖
                         </button>
                         <div className="detail-content">
